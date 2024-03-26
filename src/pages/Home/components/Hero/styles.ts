@@ -1,26 +1,20 @@
 import styled from "styled-components";
-import { defaultTheme } from "../../../../styles/themes/default"
-
-interface HeroFeaturesProps {
-    $color?: keyof typeof defaultTheme.colors;
-}
 
 export const HeroContainer = styled.section`
   position: relative;
 
   header {
-
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
-    h1{
-        font: ${props => props.theme.fonts.titleXL};
-        color: ${props => props.theme.colors["base-title"]};
+    h1 {
+      font: ${(props) => props.theme.fonts.titleXL};
+      color: ${(props) => props.theme.colors["base-title"]};
     }
     span {
-        font: ${props => props.theme.fonts.textL};
-        color: ${props => props.theme.colors["base-subtitle"]};
+      font: ${(props) => props.theme.fonts.textL};
+      color: ${(props) => props.theme.colors["base-subtitle"]};
     }
   }
 
@@ -49,10 +43,9 @@ export const HeroContent = styled.div`
     flex-direction: column;
     gap: 66px;
   }
-  
 `;
 
-export const HeroFeatures = styled.div<HeroFeaturesProps>`
+export const HeroFeatures = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 20px;
@@ -61,13 +54,13 @@ export const HeroFeatures = styled.div<HeroFeaturesProps>`
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 0;
 
     svg {
-      padding: 8;
+      width: 32px;
+      height: 32px;
+      padding: 8px;
       border-radius: 50%;
-      color: ${props => props.theme.colors.background};
-      background: ${props => props.theme.colors[props.$color || "purple"]};
+      color: ${(props) => props.theme.colors.background};
     }
   }
 `;

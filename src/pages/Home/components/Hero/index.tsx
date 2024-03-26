@@ -2,8 +2,11 @@ import { HeroContainer, HeroContent, HeroFeatures } from "./styles";
 import heroBg from "../../../../../public/assets/hero-bg.svg";
 import hero from "../../../../../public/assets/hero.svg";
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
+import { useTheme } from "styled-components";
 
 export function Hero() {
+  const theme = useTheme();
+
   return (
     <HeroContainer>
       <HeroContent>
@@ -19,22 +22,34 @@ export function Hero() {
 
           <HeroFeatures>
             <div>
-              <ShoppingCart width={16} weight="fill" />
+              <ShoppingCart
+                weight="fill"
+                style={{ background: theme.colors["yellow-dark"] }}
+              />
               <span>Compra simples e segura.</span>
             </div>
 
             <div>
-              <Package width={16} weight="fill" />
+              <Package
+                weight="fill"
+                style={{ background: theme.colors["base-text"] }}
+              />
               <span>Embalagem mantém o café intacto</span>
             </div>
 
             <div>
-              <Timer width={16} weight="fill" />
+              <Timer
+                weight="fill"
+                style={{ background: theme.colors.yellow }}
+              />
               <span>Entrega rápida e rastreada</span>
             </div>
 
             <div>
-              <Coffee width={16} weight="fill" />
+              <Coffee
+                weight="fill"
+                style={{ background: theme.colors.purple }}
+              />
               <span>O café chega fresquinho até você</span>
             </div>
           </HeroFeatures>
