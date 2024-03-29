@@ -29,9 +29,9 @@ export const QuantityContainer = styled.div`
       color: ${(props) => props.theme.colors["purple-dark"]};
     }
   }
-  
+
   span {
-    font: ${(props) => props.theme.fonts.textM };
+    font: ${(props) => props.theme.fonts.textM};
     color: ${(props) => props.theme.colors["base-title"]};
   }
 `;

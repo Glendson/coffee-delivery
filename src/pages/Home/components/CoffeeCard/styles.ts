@@ -58,13 +58,11 @@ export const CoffeeDescription = styled.span`
 `;
 
 export const CoffeeBuy = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 30px;
-
+  margin-top: 30px;
 `;
 
 export const CoffeePrice = styled.div`
@@ -80,5 +78,27 @@ export const CoffeePrice = styled.div`
   span:last-child {
     font: ${(props) => props.theme.fonts.titleM};
     color: ${(props) => props.theme.colors["base-text"]};
+  }
+`;
+
+export const CoffeeButton = styled.button`
+  display: flex;
+  align-items: center;
+
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 0;
+
+  background: ${(props) => props.theme.colors["purple-dark"]};
+  color: ${(props) => props.theme.colors["base-card"]};
+
+  &:hover {
+    background: ${(props) => props.theme.colors["purple"]};
+  }
+
+  svg {
+    width: 1.375rem;
+    height: 1.375rem;
   }
 `;

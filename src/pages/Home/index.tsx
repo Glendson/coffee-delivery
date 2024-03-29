@@ -1,20 +1,23 @@
 import { CoffeeCard } from "./components/CoffeeCard";
 import { Hero } from "./components/Hero";
-import { HomeContainer } from "./styles";
+import { CoffeeList, HomeContainer } from "./styles";
 
-export function Home(){
-    return (
-        <HomeContainer>
-            <div>
-                <Hero />
+import { coffees } from "../../../data.json";
 
-                <div>
-                    <h2>Nossos cafés</h2>
+export function Home() {
+  return (
+    <HomeContainer>
+      <Hero />
 
+      <CoffeeList>
+        <h2>Nossos cafés</h2>
 
-                    <CoffeeCard />
-                </div>
-            </div>
-        </HomeContainer>
-    )
+        <div>
+          {coffees.map((coffee) => {
+            return <CoffeeCard key={coffee.id} coffee={coffee} />;
+          })}
+        </div>
+      </CoffeeList>
+    </HomeContainer>
+  );
 }
