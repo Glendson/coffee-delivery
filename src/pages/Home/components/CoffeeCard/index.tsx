@@ -21,6 +21,13 @@ export interface Coffee {
   image: string;
 }
 
+interface CartItem {
+  id: string;
+  quantity: number;
+  price: number;
+  totalPrice: number;
+}
+
 interface CardProps {
   coffee: Coffee;
 }
@@ -38,7 +45,28 @@ export function CoffeeCard({ coffee }: CardProps) {
   }
 
   function handleAddCoffeeAmount() {
-    if (isItemAdded) return;
+    const newCoffeeItem: CartItem = {
+      id: coffee.id,
+      price: coffee.price,
+      quantity: coffeeQuantity,
+      totalPrice: coffeeQuantity * coffee.price,
+    };
+
+    const existingCartItemsJSON = localStorage.getItem("cartItems");
+    const existingCartItems: CartItem[] = existingCartItemsJSON
+      ? JSON.parse(existingCartItemsJSON)
+      : [];
+
+    const existingCoffeeIndex = existingCartItems.findIndex(
+      (item) => item.id === coffee.id
+    );
+
+    existingCoffeeIndex !== -1
+      ? ((existingCartItems[existingCoffeeIndex].quantity += coffeeQuantity),
+        (existingCartItems[existingCoffeeIndex].totalPrice +=
+          coffeeQuantity * coffee.price))
+      : existingCartItems.push(newCoffeeItem);
+
     setIsItemAdded(true);
     setCoffeeQuantity(1);
   }
