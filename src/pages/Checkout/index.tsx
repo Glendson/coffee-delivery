@@ -15,6 +15,7 @@ import {
   PaymentContainer,
   PaymentMethods,
   PaymentButton,
+  PaymentHeader,
 } from "./styles";
 
 export function Checkout() {
@@ -36,14 +37,19 @@ export function Checkout() {
             <AddressFormContainer></AddressFormContainer>
           </AddressContainer>
           <PaymentContainer>
-            <div>
-              <CurrencyDollar />
-              <span>Pagamento</span>
+            <PaymentHeader>        
 
-              <p>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
-              </p>
-            </div>
+              <CurrencyDollar />       
+
+              <div>
+                <span>Pagamento</span>
+
+                <p>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </p>
+              </div>
+            </PaymentHeader>
 
             <PaymentMethods>
               <PaymentButton>

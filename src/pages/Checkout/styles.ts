@@ -1,28 +1,57 @@
 import styled from "styled-components";
 
-export const CheckoutContainer = styled.div``;
+export const CheckoutContainer = styled.div`
+  display: flex;
+  max-width: 1160px;
+  padding: 40px 20px;
+  margin: 0 auto;
+  gap: 32px;
+`;
 
-export const OrderCompleteContainer = styled.div`
-  width: 40rem;
+const container = styled.div`
+  width: 100%;
+  min-width: 640px;
 
   display: flex;
   flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 0;
-  border-radius: 0.375rem;
-`;
-
-export const AddressContainer = styled.div`
-  flex: 1;
   gap: 2rem;
+
   padding: 2.5rem;
+  border-radius: 0.375rem;
 
   background: ${(props) => props.theme.colors["base-card"]};
 `;
 
-export const AddressHeader = styled.div``;
+export const OrderCompleteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1;
+`;
+
+export const AddressContainer = styled(container)``;
+
+const BaseHeader = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  span {
+    font: ${(props) => props.theme.fonts.textM};
+    color: ${(props) => props.theme.colors["base-subtitle"]};
+  }
+
+  p {
+    font: ${(props) => props.theme.fonts.textS};
+    color: ${(props) => props.theme.colors["base-text"]};
+  }
+`;
+
+export const AddressHeader = styled(BaseHeader)`
+  svg {
+    width: 1.375rem;
+    height: 1.375rem;
+    color: ${(props) => props.theme.colors.yellow};
+  }
+`;
 
 export const AddressFormContainer = styled.div``;
 
@@ -49,27 +78,45 @@ export const AddressLineGroup = styled.div`
   gap: 0.75rem;
 `;
 
-export const PaymentContainer = styled.div`
-  flex: 1;
-  border-radius: 0.375rem;
-  display: flex;
-  gap: 2rem;
-  padding: 2.5rem;
+export const PaymentContainer = styled(container)`
+  margin-top: 0.75rem;
 
-  background: ${(props) => props.theme.colors["base-card"]};
+  svg {
+    width: 1.375rem;
+    height: 1.375rem;
+    color: ${(props) => props.theme.colors.purple};
+  }
 `;
 
-export const PaymentMethods = styled.div``;
+export const PaymentHeader = styled(BaseHeader)``;
+
+export const PaymentMethods = styled.div`
+  width: 100%;
+  min-width: 640px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+`;
 
 export const PaymentButton = styled.button`
+  width: 100%;
   display: flex;
+  align-items: flex-start;
+  justify-content: start;
   gap: 0.75rem;
+  border: 0;
   border-radius: 0.375rem;
   padding: 1rem;
+
+  text-transform: uppercase;
 
   font: ${(props) => props.theme.fonts.buttonM};
   color: ${(props) => props.theme.colors["base-text"]};
   background: ${(props) => props.theme.colors["base-button"]};
+
+  cursor: pointer;
 
   svg {
     width: 1rem;
