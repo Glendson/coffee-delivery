@@ -6,6 +6,11 @@ export const CheckoutContainer = styled.div`
   padding: 40px 20px;
   margin: 0 auto;
   gap: 32px;
+
+  h2 {
+    font: ${(props) => props.theme.fonts.titleXS};
+    color: ${(props) => props.theme.colors["base-subtitle"]};
+  }
 `;
 
 const container = styled.div`
@@ -26,6 +31,10 @@ export const OrderCompleteContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
 `;
 
 export const AddressContainer = styled(container)``;
@@ -53,7 +62,12 @@ export const AddressHeader = styled(BaseHeader)`
   }
 `;
 
-export const AddressFormContainer = styled.div``;
+export const AddressFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+`;
 
 const BaseAddressInput = styled.input`
   height: 2.625rem;
@@ -63,10 +77,23 @@ const BaseAddressInput = styled.input`
   font: ${(props) => props.theme.fonts.textS};
   color: ${(props) => props.theme.colors["base-label"]};
   background: ${(props) => props.theme.colors["base-input"]};
+
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 `;
 
 export const AddressCepInput = styled(BaseAddressInput)`
   width: 12.5rem;
+`;
+
+export const AddressUFInput = styled(BaseAddressInput)`
+  width: 3.75rem;
+  text-transform: uppercase;
 `;
 
 export const AddressInput = styled(BaseAddressInput)`
@@ -125,4 +152,99 @@ export const PaymentButton = styled.button`
   }
 `;
 
-export const OrderSelectContainer = styled.div``;
+export const OrderCartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const OrderItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  min-width: 448px;
+  padding: 2.5rem;
+  border-radius: 6px 36px;
+
+  background: ${(props) => props.theme.colors["base-card"]};
+`;
+
+export const Divider = styled.div`
+  display: block;
+
+  width: 100%;
+  height: 1px;
+  margin-top: 24px;
+
+  background: ${(props) => props.theme.colors["base-button"]};
+`;
+
+const TotalContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CartTotalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  gap: 0.75rem;
+`;
+
+export const TotalItens = styled(TotalContainer)`
+  > span {
+    font: ${(props) => props.theme.fonts.textS};
+    color: ${(props) => props.theme.colors["base-text"]};
+  }
+  > p {
+    font: ${(props) => props.theme.fonts.textM};
+    color: ${(props) => props.theme.colors["base-text"]};
+  }
+`;
+export const DeliveryPrice = styled(TotalContainer)`
+  > span {
+    font: ${(props) => props.theme.fonts.textS};
+    color: ${(props) => props.theme.colors["base-text"]};
+  }
+  > p {
+    font: ${(props) => props.theme.fonts.textM};
+    color: ${(props) => props.theme.colors["base-text"]};
+  }
+`;
+export const CartTotal = styled(TotalContainer)`
+  > span {
+    font: ${(props) => props.theme.fonts.textL};
+    color: ${(props) => props.theme.colors["base-subtitle"]};
+  }
+  > p {
+    font: ${(props) => props.theme.fonts.textL};
+    color: ${(props) => props.theme.colors["base-subtitle"]};
+  }
+`;
+
+export const CheckOutButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 6px;
+
+  gap: 0.25rem;
+
+  padding: 12px 8px;
+
+  text-transform: uppercase;
+  
+  font: ${(props) => props.theme.fonts.buttonG};
+  color: ${(props) => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.yellow};
+
+  &:hover {
+    background: ${(props) => props.theme.colors["yellow-dark"]};
+  }
+
+  transition: all 0.3s;
+`;

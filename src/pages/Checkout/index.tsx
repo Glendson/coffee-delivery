@@ -11,12 +11,24 @@ import {
   AddressHeader,
   CheckoutContainer,
   OrderCompleteContainer,
-  OrderSelectContainer,
+  OrderCartContainer,
   PaymentContainer,
   PaymentMethods,
   PaymentButton,
   PaymentHeader,
+  AddressCepInput,
+  AddressInput,
+  AddressLineGroup,
+  AddressUFInput,
+  OrderItemContainer,
+  Divider,
+  CartTotalContainer,
+  TotalItens,
+  DeliveryPrice,
+  CartTotal,
+  CheckOutButton,
 } from "./styles";
+import { CoffeeCardItem } from "./CoffeeCardItem/Index";
 
 export function Checkout() {
   return (
@@ -34,12 +46,44 @@ export function Checkout() {
                 <p>Informe o endereço onde deseja receber seu pedido</p>
               </div>
             </AddressHeader>
-            <AddressFormContainer></AddressFormContainer>
+            <AddressFormContainer>
+              <AddressCepInput
+                id="cep"
+                type="number"
+                name="cep"
+                placeholder="CEP"
+              />
+
+              <AddressLineGroup>
+                <AddressInput id="rua" name="rua" placeholder="Rua" />
+              </AddressLineGroup>
+              <AddressLineGroup>
+                <AddressCepInput
+                  id="numero"
+                  type="number"
+                  name="numero"
+                  placeholder="Numero"
+                />
+                <AddressInput
+                  id="complemento"
+                  name="complemento"
+                  placeholder="Complemento"
+                />
+              </AddressLineGroup>
+              <AddressLineGroup>
+                <AddressCepInput
+                  id="bairro"
+                  name="bairro"
+                  placeholder="Bairro"
+                />
+                <AddressInput id="Cidade" name="cidade" placeholder="Cidade" />
+                <AddressUFInput id="UF" name="UF" maxLength={2} placeholder="UF" />
+              </AddressLineGroup>
+            </AddressFormContainer>
           </AddressContainer>
           <PaymentContainer>
-            <PaymentHeader>        
-
-              <CurrencyDollar />       
+            <PaymentHeader>
+              <CurrencyDollar />
 
               <div>
                 <span>Pagamento</span>
@@ -68,7 +112,32 @@ export function Checkout() {
           </PaymentContainer>
         </form>
       </OrderCompleteContainer>
-      <OrderSelectContainer></OrderSelectContainer>
+
+      <OrderCartContainer>
+        <h2>Cafés selecionados</h2>
+
+        <OrderItemContainer>
+          <CoffeeCardItem />          
+        
+        <CartTotalContainer>
+          <TotalItens>
+            <span>Total de Itens</span>
+            <p>Total</p>
+          </TotalItens>
+          <DeliveryPrice>
+            <span>Entrega</span>
+            <p>Valor</p>            
+          </DeliveryPrice>
+          <CartTotal>
+            <span>total</span>
+            <p>Valor</p>
+          </CartTotal>
+        </CartTotalContainer>
+        <CheckOutButton>
+          Confirmar Pedido
+        </CheckOutButton>
+        </OrderItemContainer>
+      </OrderCartContainer>
     </CheckoutContainer>
   );
 }
