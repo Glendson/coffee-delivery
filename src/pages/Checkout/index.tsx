@@ -29,14 +29,21 @@ import {
   CheckOutButton,
 } from "./styles";
 import { CoffeeCardItem } from "./CoffeeCardItem/Index";
+import { useForm } from "react-hook-form";
 
 export function Checkout() {
+  const { register, handleSubmit } = useForm();
+
+  function handleCreateNewOrder(data: any) {
+    console.log(data);
+  }
+
   return (
     <CheckoutContainer>
       <OrderCompleteContainer>
         <h2>Complete o seu Pedido</h2>
 
-        <form action="">
+        <form onSubmit={handleSubmit(handleCreateNewOrder)} action="">
           <AddressContainer>
             <AddressHeader>
               <MapPinLine />
@@ -50,8 +57,8 @@ export function Checkout() {
               <AddressCepInput
                 id="cep"
                 type="number"
-                name="cep"
                 placeholder="CEP"
+                {...register("cep", { valueAsNumber: true })}
               />
 
               <AddressLineGroup>
@@ -61,23 +68,32 @@ export function Checkout() {
                 <AddressCepInput
                   id="numero"
                   type="number"
-                  name="numero"
                   placeholder="Numero"
+                  {...register("numero", { valueAsNumber: true })}
                 />
                 <AddressInput
                   id="complemento"
-                  name="complemento"
                   placeholder="Complemento"
+                  {...register("complemento")}
                 />
               </AddressLineGroup>
               <AddressLineGroup>
                 <AddressCepInput
                   id="bairro"
-                  name="bairro"
                   placeholder="Bairro"
+                  {...register("bairro")}
                 />
-                <AddressInput id="Cidade" name="cidade" placeholder="Cidade" />
-                <AddressUFInput id="UF" name="UF" maxLength={2} placeholder="UF" />
+                <AddressInput
+                  id="Cidade"
+                  placeholder="Cidade"
+                  {...register("cidade")}
+                />
+                <AddressUFInput
+                  id="UF"
+                  maxLength={2}
+                  placeholder="UF"
+                  {...register("uf")}
+                />
               </AddressLineGroup>
             </AddressFormContainer>
           </AddressContainer>
@@ -117,25 +133,23 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <OrderItemContainer>
-          <CoffeeCardItem />          
-        
-        <CartTotalContainer>
-          <TotalItens>
-            <span>Total de Itens</span>
-            <p>Total</p>
-          </TotalItens>
-          <DeliveryPrice>
-            <span>Entrega</span>
-            <p>Valor</p>            
-          </DeliveryPrice>
-          <CartTotal>
-            <span>total</span>
-            <p>Valor</p>
-          </CartTotal>
-        </CartTotalContainer>
-        <CheckOutButton>
-          Confirmar Pedido
-        </CheckOutButton>
+          <CoffeeCardItem />
+
+          <CartTotalContainer>
+            <TotalItens>
+              <span>Total de Itens</span>
+              <p>Total</p>
+            </TotalItens>
+            <DeliveryPrice>
+              <span>Entrega</span>
+              <p>Valor</p>
+            </DeliveryPrice>
+            <CartTotal>
+              <span>total</span>
+              <p>Valor</p>
+            </CartTotal>
+          </CartTotalContainer>
+          <CheckOutButton>Confirmar Pedido</CheckOutButton>
         </OrderItemContainer>
       </OrderCartContainer>
     </CheckoutContainer>
