@@ -29,13 +29,53 @@ import {
   CheckOutButton,
 } from "./styles";
 import { CoffeeCardItem } from "./CoffeeCardItem/Index";
+import { CartItem } from "../Home/components/CoffeeCard";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+
+const newOrderFormValidationSchema = zod.object({
+  cep: zod.string({ invalid_type_error: "Informe o CEP" }).regex(/^\d{8}$/),
+  rua: zod.string().min(1, "Informe a rua"),
+  numero: zod.number().int().min(1, "Informe o número"),
+  complemento: zod.string().optional(),
+  bairro: zod.string().min(1, "Informe o bairro"),
+  cidade: zod.string().min(1, "Informe a cidade"),
+  uf: zod.string().min(1, "Informe a UF").max(2),
+  pagamento: zod.enum(["credito", "debito", "dinheiro"], {
+    invalid_type_error: "Informe um método de pagamento",
+  }),
+});
+
+type CreateNewOrderFormData = zod.infer<typeof newOrderFormValidationSchema>;
+
+interface Order extends CreateNewOrderFormData {
+  id: string;
+  items: CartItem[];
+}
 
 export function Checkout() {
-  const { register, handleSubmit } = useForm();
+  const [order, setOrder] = useState<Order[]>([]);
 
-  function handleCreateNewOrder(data: any) {
+  const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
+    resolver: zodResolver(newOrderFormValidationSchema),
+    defaultValues: {
+      bairro: "",
+      cep: "",
+      cidade: "",
+      complemento: "",
+      numero: 0,
+      pagamento: "dinheiro",
+      rua: "",
+      uf: "",
+    },
+  });
+
+  function handleCreateNewOrder(data: CreateNewOrderFormData) {
     console.log(data);
+
+    reset();
   }
 
   return (

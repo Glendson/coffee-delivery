@@ -21,7 +21,7 @@ export interface Coffee {
   image: string;
 }
 
-interface CartItem {
+export interface CartItem {
   id: string;
   quantity: number;
   price: number;
