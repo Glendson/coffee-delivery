@@ -33,7 +33,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
-import { CartItem, CoffeeContext } from "../../contexts/CoffeeContext";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 const newOrderFormValidationSchema = zod.object({
   cep: zod.string({ invalid_type_error: "Informe o CEP" }).regex(/^\d{8}$/),
@@ -48,16 +48,14 @@ const newOrderFormValidationSchema = zod.object({
   }),
 });
 
-type CreateNewOrderFormData = zod.infer<typeof newOrderFormValidationSchema>;
-
-interface Order extends CreateNewOrderFormData {
-  id: string;
-  items: CartItem[];
-}
+export type CreateNewOrderFormData = zod.infer<
+  typeof newOrderFormValidationSchema
+>;
 
 export function Checkout() {
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
-  const {} = useContext(CoffeeContext)
+  const { createOrder, cartItems } = useContext(CoffeeContext);
 
   const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
@@ -73,8 +71,16 @@ export function Checkout() {
     },
   });
 
+  const handlePaymentSelection = (paymentMethod: string) => {
+    setSelectedPayment(
+      paymentMethod === selectedPayment ? null : paymentMethod
+    );
+  };
+
   function handleCreateNewOrder(data: CreateNewOrderFormData) {
-    console.log(data);
+    if (Object.keys(data).length === 0 || cartItems.length === 0) return;
+
+    createOrder(data);
 
     reset();
   }
@@ -84,7 +90,11 @@ export function Checkout() {
       <OrderCompleteContainer>
         <h2>Complete o seu Pedido</h2>
 
-        <form onSubmit={handleSubmit(handleCreateNewOrder)} action="">
+        <form
+          id="address-form"
+          onSubmit={handleSubmit(handleCreateNewOrder)}
+          action=""
+        >
           <AddressContainer>
             <AddressHeader>
               <MapPinLine />
@@ -153,15 +163,24 @@ export function Checkout() {
             </PaymentHeader>
 
             <PaymentMethods>
-              <PaymentButton>
+              <PaymentButton
+                onClick={() => handlePaymentSelection("credito")}
+                selected={selectedPayment === "credito"}
+              >
                 <CreditCard size={32} />
                 <span>Cartão de crédito</span>
               </PaymentButton>
-              <PaymentButton>
+              <PaymentButton
+                onClick={() => handlePaymentSelection("debito")}
+                selected={selectedPayment === "debito"}
+              >
                 <Bank size={32} />
                 <span>cartão de débito</span>
               </PaymentButton>
-              <PaymentButton>
+              <PaymentButton
+                onClick={() => handlePaymentSelection("dinheiro")}
+                selected={selectedPayment === "dinheiro"}
+              >
                 <Money size={32} />
                 <span>dinheiro</span>
               </PaymentButton>
@@ -190,7 +209,9 @@ export function Checkout() {
               <p>Valor</p>
             </CartTotal>
           </CartTotalContainer>
-          <CheckOutButton>Confirmar Pedido</CheckOutButton>
+          <CheckOutButton type="submit" form="address-form">
+            Confirmar Pedido
+          </CheckOutButton>
         </OrderItemContainer>
       </OrderCartContainer>
     </CheckoutContainer>

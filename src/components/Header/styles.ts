@@ -6,8 +6,8 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
 
   max-width: 72.5rem;
-  padding: 32px 160px;  
-  
+  padding: 32px 160px;
+
   aside {
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@ export const HeaderContainer = styled.header`
 
       span {
         text-size: ${(props) => props.theme.fonts.textS};
-        color: ${(props) => props.theme.colors["purple-dark"]}
+        color: ${(props) => props.theme.colors["purple-dark"]};
       }
     }
 
@@ -52,5 +52,22 @@ export const HeaderContainer = styled.header`
         height: 22px;
       }
     }
-  }  
+  }
+`;
+
+export const CartCounter = styled.span`
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+
+  font-weight: bold;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font: ${(props) => props.theme.fonts.textS};
+  background: ${(props) => props.theme.colors["yellow-dark"]};
+  color: ${(props) => props.theme.colors.white};
 `;

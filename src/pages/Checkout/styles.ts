@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+interface PaymentButtonProps {
+  selected: boolean;
+}
 
 export const CheckoutContainer = styled.div`
   display: flex;
@@ -78,6 +82,13 @@ const BaseAddressInput = styled.input`
   color: ${(props) => props.theme.colors["base-label"]};
   background: ${(props) => props.theme.colors["base-input"]};
 
+  border: 1px solid transparent;
+
+  &:focus,
+  &:not(:placeholder-shown) {
+    border-color: ${(props) => props.theme.colors["yellow-dark"]}; /* Cor da borda quando focado */
+  }
+
   &::-webkit-calendar-picker-indicator {
     display: none;
   }
@@ -127,7 +138,7 @@ export const PaymentMethods = styled.div`
   gap: 0.75rem;
 `;
 
-export const PaymentButton = styled.button`
+export const PaymentButton = styled.button<PaymentButtonProps>`
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -149,6 +160,20 @@ export const PaymentButton = styled.button`
     width: 1rem;
     height: 1rem;
     color: ${(props) => props.theme.colors.purple};
+  }
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      border: 1px solid;
+
+      border-color: ${(props) => props.theme.colors.purple};
+      background: ${(props) => props.theme.colors["purple-light"]};
+    `}
+
+  &:hover {
+    color: ${(props) => props.theme.colors["base-subtitle"]};
+    background: ${(props) => props.theme.colors["base-hover"]};
   }
 `;
 
@@ -237,7 +262,7 @@ export const CheckOutButton = styled.button`
   padding: 12px 8px;
 
   text-transform: uppercase;
-  
+
   font: ${(props) => props.theme.fonts.buttonG};
   color: ${(props) => props.theme.colors.white};
   background: ${(props) => props.theme.colors.yellow};

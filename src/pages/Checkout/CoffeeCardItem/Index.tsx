@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import { QuantitySelector } from "../../../components/QuantitySelector";
-import { Coffee } from "../../Home/components/CoffeeCard";
 import {
   CoffeeActions,
   CoffeeContent,
@@ -11,16 +11,22 @@ import {
   Container,
 } from "./styles";
 import { Trash } from "@phosphor-icons/react";
+import { Coffee, CoffeeContext } from "../../../contexts/CoffeeContext";
 
 interface CardProps {
   coffee?: Coffee;
 }
 
 export function CoffeeCardItem({ coffee }: CardProps) {
-  const coffeeQuantity = 1;
+  const { increaseItemQuantity, decreaseItemQuantity, coffeeQuantity } =
+    useContext(CoffeeContext);
 
-  function handleIncreaseQuantity() {}
-  function handleDecreaseQuantity() {}
+  function handleIncreaseQuantity() {
+    increaseItemQuantity();
+  }
+  function handleDecreaseQuantity() {
+    decreaseItemQuantity();
+  }
 
   return (
     <Container>

@@ -1,9 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { HeaderContainer } from "./styles";
+import { CartCounter, HeaderContainer } from "./styles";
 import Logo from "../../../public/logo.svg";
 import { MapPin, ShoppingCart } from "@phosphor-icons/react";
+import { useContext } from "react";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 export function Header() {
+  const { cartItems } = useContext(CoffeeContext);
+
   return (
     <HeaderContainer>
       <NavLink to="/">
@@ -16,8 +20,11 @@ export function Header() {
           <span>Paranavaí, PR</span>
         </div>
 
-        <NavLink to="/checkout">
+        <NavLink to="/checkout" aria-disabled={!cartItems.length}>
           <ShoppingCart weight="fill" />
+          {cartItems.length > 0 ? (
+            <CartCounter>{cartItems.length}</CartCounter>
+          ) : null}
         </NavLink>
       </aside>
     </HeaderContainer>
