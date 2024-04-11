@@ -29,11 +29,11 @@ import {
   CheckOutButton,
 } from "./styles";
 import { CoffeeCardItem } from "./CoffeeCardItem/Index";
-import { CartItem } from "../Home/components/CoffeeCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
+import { CartItem, CoffeeContext } from "../../contexts/CoffeeContext";
 
 const newOrderFormValidationSchema = zod.object({
   cep: zod.string({ invalid_type_error: "Informe o CEP" }).regex(/^\d{8}$/),
@@ -56,7 +56,8 @@ interface Order extends CreateNewOrderFormData {
 }
 
 export function Checkout() {
-  const [order, setOrder] = useState<Order[]>([]);
+
+  const {} = useContext(CoffeeContext)
 
   const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),

@@ -10,65 +10,30 @@ import {
   CoffeeTag,
   CoffeeTitle,
 } from "./styles";
-import { useState } from "react";
-
-export interface Coffee {
-  id: string;
-  title: string;
-  description: string;
-  tags: string[];
-  price: number;
-  image: string;
-}
-
-export interface CartItem {
-  id: string;
-  quantity: number;
-  price: number;
-  totalPrice: number;
-}
+import { useContext } from "react";
+import { Coffee, CoffeeContext } from "../../../../contexts/CoffeeContext";
 
 interface CardProps {
   coffee: Coffee;
 }
 
 export function CoffeeCard({ coffee }: CardProps) {
-  const [coffeeQuantity, setCoffeeQuantity] = useState(1);
-  const [isItemAdded, setIsItemAdded] = useState(false);
+  const {
+    addCartItems,
+    coffeeQuantity,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useContext(CoffeeContext);
 
   function handleIncreaseCoffeeAmount() {
-    setCoffeeQuantity((state) => state + 1);
+    increaseItemQuantity();
   }
   function handleDecreaseCoffeeAmount() {
-    if (coffeeQuantity === 1) return;
-    setCoffeeQuantity((state) => state - 1);
+    decreaseItemQuantity();
   }
 
-  function handleAddCoffeeAmount() {
-    const newCoffeeItem: CartItem = {
-      id: coffee.id,
-      price: coffee.price,
-      quantity: coffeeQuantity,
-      totalPrice: coffeeQuantity * coffee.price,
-    };
-
-    const existingCartItemsJSON = localStorage.getItem("cartItems");
-    const existingCartItems: CartItem[] = existingCartItemsJSON
-      ? JSON.parse(existingCartItemsJSON)
-      : [];
-
-    const existingCoffeeIndex = existingCartItems.findIndex(
-      (item) => item.id === coffee.id
-    );
-
-    existingCoffeeIndex !== -1
-      ? ((existingCartItems[existingCoffeeIndex].quantity += coffeeQuantity),
-        (existingCartItems[existingCoffeeIndex].totalPrice +=
-          coffeeQuantity * coffee.price))
-      : existingCartItems.push(newCoffeeItem);
-
-    setIsItemAdded(true);
-    setCoffeeQuantity(1);
+  function handleAddCart() {
+    addCartItems(coffee);
   }
 
   return (
@@ -95,7 +60,7 @@ export function CoffeeCard({ coffee }: CardProps) {
           inclementQuantity={handleIncreaseCoffeeAmount}
           declementQuantity={handleDecreaseCoffeeAmount}
         />
-        <CoffeeButton onClick={handleAddCoffeeAmount}>
+        <CoffeeButton onClick={handleAddCart}>
           <ShoppingCart weight="fill" />
         </CoffeeButton>
       </CoffeeBuy>
