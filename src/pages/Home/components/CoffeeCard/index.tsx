@@ -10,7 +10,7 @@ import {
   CoffeeTag,
   CoffeeTitle,
 } from "./styles";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Coffee, CoffeeContext } from "../../../../contexts/CoffeeContext";
 
 interface CardProps {
@@ -18,22 +18,22 @@ interface CardProps {
 }
 
 export function CoffeeCard({ coffee }: CardProps) {
-  const {
-    addCartItems,
-    coffeeQuantity,
-    increaseItemQuantity,
-    decreaseItemQuantity,
-  } = useContext(CoffeeContext);
+  const { addCartItems } = useContext(CoffeeContext);
+
+  const [coffeeQuantity, setCoffeeQuantity] = useState(1);
 
   function handleIncreaseCoffeeAmount() {
-    increaseItemQuantity();
+    setCoffeeQuantity((state) => state + 1);
   }
   function handleDecreaseCoffeeAmount() {
-    decreaseItemQuantity();
+    if (coffeeQuantity > 1) {
+      setCoffeeQuantity((state) => state - 1);
+    }
   }
 
   function handleAddCart() {
-    addCartItems(coffee);
+    addCartItems(coffee, coffeeQuantity);
+    setCoffeeQuantity(1);
   }
 
   return (
@@ -55,14 +55,16 @@ export function CoffeeCard({ coffee }: CardProps) {
           <span>R$</span>
           <span>{coffee.price.toFixed(2)}</span>
         </CoffeePrice>
-        <QuantitySelector
-          quantity={coffeeQuantity}
-          inclementQuantity={handleIncreaseCoffeeAmount}
-          declementQuantity={handleDecreaseCoffeeAmount}
-        />
-        <CoffeeButton onClick={handleAddCart}>
-          <ShoppingCart weight="fill" />
-        </CoffeeButton>
+        <div>
+          <QuantitySelector
+            quantity={coffeeQuantity}
+            inclementQuantity={handleIncreaseCoffeeAmount}
+            declementQuantity={handleDecreaseCoffeeAmount}
+          />
+          <CoffeeButton onClick={handleAddCart}>
+            <ShoppingCart weight="fill" />
+          </CoffeeButton>
+        </div>
       </CoffeeBuy>
     </CardContainer>
   );

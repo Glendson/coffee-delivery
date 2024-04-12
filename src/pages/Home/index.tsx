@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { CoffeeCard } from "./components/CoffeeCard";
 import { Hero } from "./components/Hero";
 import { CoffeeList, HomeContainer } from "./styles";
-
-import { coffees } from "../../../data.json";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 export function Home() {
+
+  const { coffees } = useContext(CoffeeContext)
+
   return (
     <HomeContainer>
       <Hero />

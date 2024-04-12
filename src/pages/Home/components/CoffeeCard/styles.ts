@@ -63,6 +63,11 @@ export const CoffeeBuy = styled.div`
   justify-content: space-between;
 
   margin-top: 30px;
+
+  > div {
+    display: flex;
+    gap: 0.5rem;
+  }
 `;
 
 export const CoffeePrice = styled.div`

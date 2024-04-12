@@ -11,30 +11,45 @@ import {
   Container,
 } from "./styles";
 import { Trash } from "@phosphor-icons/react";
-import { Coffee, CoffeeContext } from "../../../contexts/CoffeeContext";
+import {  CoffeeContext } from "../../../contexts/CoffeeContext";
 
 interface CardProps {
-  coffee?: Coffee;
+  coffeeId: string;
 }
 
-export function CoffeeCardItem({ coffee }: CardProps) {
-  const { increaseItemQuantity, decreaseItemQuantity, coffeeQuantity } =
+export function CoffeeCardItem({ coffeeId }: CardProps) {
+  const { increaseItemQuantity, decreaseItemQuantity, removeCartItems, cartItems, getCoffeeById } =
     useContext(CoffeeContext);
 
+    const coffee = getCoffeeById(coffeeId)
+
+    if (!coffee) {
+      return null; 
+    }
+
+    const coffeeInCart = cartItems.find((item) => item.id === coffee.id);
+
+    const coffeeQuantity = coffeeInCart ? coffeeInCart.quantity : 1;
+
   function handleIncreaseQuantity() {
-    increaseItemQuantity();
+    increaseItemQuantity(coffeeId);
   }
   function handleDecreaseQuantity() {
-    decreaseItemQuantity();
+    if(!coffeeInCart ) return;
+    decreaseItemQuantity(coffeeId);
+  }
+
+  function handleRemoveItemCart(){
+    removeCartItems(coffeeId);
   }
 
   return (
     <Container>
       <CoffeeInfo>
-        <CoffeeImage src="public/assets/coffees/americano.png" alt="" />
+        <CoffeeImage src={coffee.image} alt="" />
 
         <CoffeeContent>
-          <CoffeeTitle>Cafe Americano</CoffeeTitle>
+          <CoffeeTitle>{coffee.title}</CoffeeTitle>
 
           <CoffeeActions>
             <QuantitySelector
@@ -43,7 +58,7 @@ export function CoffeeCardItem({ coffee }: CardProps) {
               inclementQuantity={handleIncreaseQuantity}
             />
 
-            <CoffeeRemoveButton>
+            <CoffeeRemoveButton onClick={handleRemoveItemCart}>
               <Trash />
               <span>Remover</span>
             </CoffeeRemoveButton>
@@ -51,7 +66,7 @@ export function CoffeeCardItem({ coffee }: CardProps) {
         </CoffeeContent>
       </CoffeeInfo>
 
-      <CoffeePrice>R$ 9.90</CoffeePrice>
+      <CoffeePrice>R$ {coffee.price.toFixed(2)}</CoffeePrice>
     </Container>
   );
 }

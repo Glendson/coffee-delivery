@@ -29,7 +29,7 @@ import {
   CheckOutButton,
 } from "./styles";
 import { CoffeeCardItem } from "./CoffeeCardItem/Index";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -55,7 +55,7 @@ export type CreateNewOrderFormData = zod.infer<
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
-  const { createOrder, cartItems } = useContext(CoffeeContext);
+  const { createOrder, cartItems, getTotalCartPrice } = useContext(CoffeeContext);
 
   const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
@@ -64,12 +64,13 @@ export function Checkout() {
       cep: "",
       cidade: "",
       complemento: "",
-      numero: 0,
       pagamento: "dinheiro",
       rua: "",
       uf: "",
     },
   });
+
+  const deliveryPrice = 3.5 
 
   const handlePaymentSelection = (paymentMethod: string) => {
     setSelectedPayment(
@@ -193,20 +194,28 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <OrderItemContainer>
-          <CoffeeCardItem />
+          {cartItems.map((coffee) => {
+            return (
+              <React.Fragment key={coffee.id}>
+                <CoffeeCardItem coffeeId={coffee.id} />
+
+                <Divider />
+              </React.Fragment>
+            );
+          })}
 
           <CartTotalContainer>
             <TotalItens>
               <span>Total de Itens</span>
-              <p>Total</p>
+              <p>{cartItems.length}</p>
             </TotalItens>
             <DeliveryPrice>
               <span>Entrega</span>
-              <p>Valor</p>
+              <p>{deliveryPrice}</p>
             </DeliveryPrice>
             <CartTotal>
               <span>total</span>
-              <p>Valor</p>
+              <p>{getTotalCartPrice()}</p>
             </CartTotal>
           </CartTotalContainer>
           <CheckOutButton type="submit" form="address-form">

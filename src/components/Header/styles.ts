@@ -37,6 +37,7 @@ export const HeaderContainer = styled.header`
     a {
       display: flex;
       align-items: center;
+      width: 2.375rem;
       height: 2.375rem;
 
       border-radius: 0.375rem;
@@ -60,12 +61,17 @@ export const CartCounter = styled.span`
   width: 1.25rem;
   height: 1.25rem;
 
+  position: absolute;
+
   font-weight: bold;
 
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
+
+  top: -5px;
+  right: -5px;
 
   font: ${(props) => props.theme.fonts.textS};
   background: ${(props) => props.theme.colors["yellow-dark"]};
