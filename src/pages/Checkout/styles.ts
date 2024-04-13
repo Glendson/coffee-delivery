@@ -272,4 +272,5 @@ export const CheckOutButton = styled.button`
   }
 
   transition: all 0.3s;
+  cursor: pointer;
 `;

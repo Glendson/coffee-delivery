@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { CreateNewOrderFormData } from "../pages/Checkout";
 import  coffeesData from "../utils/data.json"
+import { useNavigate } from "react-router-dom";
 export interface Coffee {
   id: string;
   title: string;
@@ -47,6 +48,8 @@ export function CoffeeContextProvider({
   const [coffees, setCoffees] = useState<Coffee[]>([])
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCoffees = async () => {
@@ -130,6 +133,8 @@ export function CoffeeContextProvider({
     };
     setOrders((state) => [...state, order]);
     setCartItems([]);
+
+    navigate(`/success/${order.id}`);
   }
 
   function getCoffeeById(coffeeId: string) {

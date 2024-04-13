@@ -30,13 +30,13 @@ import {
 } from "./styles";
 import { CoffeeCardItem } from "./CoffeeCardItem/Index";
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 const newOrderFormValidationSchema = zod.object({
-  cep: zod.string({ invalid_type_error: "Informe o CEP" }).regex(/^\d{8}$/),
+  cep: zod.number({ invalid_type_error: "Informe o CEP" }),
   rua: zod.string().min(1, "Informe a rua"),
   numero: zod.number().int().min(1, "Informe o número"),
   complemento: zod.string().optional(),
@@ -55,13 +55,13 @@ export type CreateNewOrderFormData = zod.infer<
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
-  const { createOrder, cartItems, getTotalCartPrice } = useContext(CoffeeContext);
+  const { createOrder, cartItems, getTotalCartPrice } =
+    useContext(CoffeeContext);
 
   const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
     defaultValues: {
       bairro: "",
-      cep: "",
       cidade: "",
       complemento: "",
       pagamento: "dinheiro",
@@ -70,7 +70,7 @@ export function Checkout() {
     },
   });
 
-  const deliveryPrice = 3.5 
+  const deliveryPrice = 3.5;
 
   const handlePaymentSelection = (paymentMethod: string) => {
     setSelectedPayment(
@@ -78,24 +78,23 @@ export function Checkout() {
     );
   };
 
-  function handleCreateNewOrder(data: CreateNewOrderFormData) {
+  const handleCreateNewOrder: SubmitHandler<CreateNewOrderFormData> = (
+    data
+  ) => {
+    console.log("Formulário enviado:", data);
     if (Object.keys(data).length === 0 || cartItems.length === 0) return;
 
     createOrder(data);
 
     reset();
-  }
+  };
 
   return (
     <CheckoutContainer>
       <OrderCompleteContainer>
         <h2>Complete o seu Pedido</h2>
 
-        <form
-          id="address-form"
-          onSubmit={handleSubmit(handleCreateNewOrder)}
-          action=""
-        >
+        <form id="form" onSubmit={handleSubmit(handleCreateNewOrder)} action="">
           <AddressContainer>
             <AddressHeader>
               <MapPinLine />
@@ -114,7 +113,7 @@ export function Checkout() {
               />
 
               <AddressLineGroup>
-                <AddressInput id="rua" name="rua" placeholder="Rua" />
+                <AddressInput id="rua" placeholder="Rua" {...register("rua")} />
               </AddressLineGroup>
               <AddressLineGroup>
                 <AddressCepInput
@@ -165,21 +164,30 @@ export function Checkout() {
 
             <PaymentMethods>
               <PaymentButton
-                onClick={() => handlePaymentSelection("credito")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePaymentSelection("credito");
+                }}
                 selected={selectedPayment === "credito"}
               >
                 <CreditCard size={32} />
                 <span>Cartão de crédito</span>
               </PaymentButton>
               <PaymentButton
-                onClick={() => handlePaymentSelection("debito")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePaymentSelection("debito");
+                }}
                 selected={selectedPayment === "debito"}
               >
                 <Bank size={32} />
                 <span>cartão de débito</span>
               </PaymentButton>
               <PaymentButton
-                onClick={() => handlePaymentSelection("dinheiro")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePaymentSelection("dinheiro");
+                }}
                 selected={selectedPayment === "dinheiro"}
               >
                 <Money size={32} />
@@ -218,7 +226,7 @@ export function Checkout() {
               <p>{getTotalCartPrice()}</p>
             </CartTotal>
           </CartTotalContainer>
-          <CheckOutButton type="submit" form="address-form">
+          <CheckOutButton type="submit" form="form">
             Confirmar Pedido
           </CheckOutButton>
         </OrderItemContainer>
