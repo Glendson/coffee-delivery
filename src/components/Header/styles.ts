@@ -5,8 +5,8 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  max-width: 72.5rem;
-  padding: 32px 110px;
+  max-width: 90rem;
+  padding: 32px 160px;
 
   aside {
     display: flex;
@@ -17,6 +17,8 @@ export const HeaderContainer = styled.header`
       display: flex;
       align-items: center;
       gap: 0.25rem;
+
+      
 
       padding: 10px 8px;
 
