@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
 
   max-width: 72.5rem;
-  padding: 32px 160px;
+  padding: 32px 110px;
 
   aside {
     display: flex;

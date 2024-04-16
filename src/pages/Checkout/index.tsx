@@ -81,7 +81,6 @@ export function Checkout() {
   const handleCreateNewOrder: SubmitHandler<CreateNewOrderFormData> = (
     data
   ) => {
-    console.log("Formulário enviado:", data);
     if (Object.keys(data).length === 0 || cartItems.length === 0) return;
 
     createOrder(data);

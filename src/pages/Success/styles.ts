@@ -70,6 +70,7 @@ const OrderDiv = styled.div`
   div {
     display: flex;
     flex-direction: column;
+    text-transform: capitalize;
   }
 `;
 
