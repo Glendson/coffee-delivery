@@ -1,30 +1,75 @@
-# React + TypeScript + Vite
+Claro, aqui está um README mais completo com seções adicionais:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# Coffee Delivery App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este é um aplicativo de entrega de café onde os usuários podem navegar por uma seleção de cafés, adicionar itens ao carrinho e fazer pedidos. Os pedidos podem ser feitos após fornecer informações de entrega e seleção de método de pagamento.
 
-## Expanding the ESLint configuration
+![Coffee Delivery App](.github\CoffeeDelivery-Home.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Funcionalidades
 
-- Configure the top-level `parserOptions` property like this:
+- **Explorar Cafés:** Os usuários podem visualizar uma lista de cafés disponíveis para compra.
+- **Adicionar ao Carrinho:** Os usuários podem adicionar cafés ao carrinho de compras.
+- **Fazer Pedidos:** Os usuários podem fazer pedidos após fornecer informações de entrega e selecionar um método de pagamento.
+- **Visualizar Pedidos Anteriores:** Os usuários podem visualizar seus pedidos anteriores.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Tecnologias Utilizadas
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **React:** O aplicativo é construído utilizando o framework React para o desenvolvimento do frontend.
+- **Styled Components:** Styled Components é utilizado para estilizar os componentes React com CSS-in-JS.
+- **React Router:** React Router é utilizado para lidar com a navegação dentro do aplicativo.
+- **Context API:** A Context API do React é utilizada para o gerenciamento de estado da aplicação.
+
+## Como Executar o Projeto Localmente
+
+1. **Clonar o Repositório:** Clone este repositório para sua máquina local utilizando o seguinte comando:
+
+   ```
+   git clone https://github.com/Glendson/coffee-delivery.git
+   ```
+
+2. **Instalar Dependências:** Instale as dependências do projeto utilizando npm ou yarn:
+
+   ```
+   npm install
+   ```
+
+   ou
+
+   ```
+   yarn install
+   ```
+
+3. **Iniciar o Servidor de Desenvolvimento:** Após a instalação das dependências, inicie o servidor de desenvolvimento com o seguinte comando:
+
+   ```
+   npm start
+   ```
+
+   ou
+
+   ```
+   yarn start
+   ```
+
+4. **Acessar o Aplicativo:** O aplicativo estará disponível no seu navegador em [http://localhost:3000](http://localhost:3000).
+
+## Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um pull request ou relatar um problema.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+## Autores
+
+- **Nome do Autor:** [Glendson Garcete](https://github.com/Glendson)
+
+## Agradecimentos
+
+Agradecemos a todos os desenvolvedores e colaboradores que contribuíram para este projeto.
+
+---
