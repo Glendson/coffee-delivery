@@ -6,7 +6,7 @@ Claro, aqui está um README mais completo com seções adicionais:
 
 Este é um aplicativo de entrega de café onde os usuários podem navegar por uma seleção de cafés, adicionar itens ao carrinho e fazer pedidos. Os pedidos podem ser feitos após fornecer informações de entrega e seleção de método de pagamento.
 
-![Coffee Delivery App](.github\CoffeeDelivery-Home.png)
+![Coffee Delivery App](.github/CoffeeDelivery-Home.png)
 
 ## Funcionalidades
 
