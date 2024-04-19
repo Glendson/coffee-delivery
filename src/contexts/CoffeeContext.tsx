@@ -33,11 +33,32 @@ export const CoffeeContext = createContext({} as CoffeeContextType);
 export function CoffeeContextProvider({
   children,
 }: CoffeeContextProviderProps) {
-  const [cartState, dispatch] = useReducer(cartReducer, {
-    cart: [],
-    orders: [],
-    coffees: [],
-  });
+  const [cartState, dispatch] = useReducer(
+    cartReducer,
+    {
+      cart: [],
+      orders: [],
+      coffees: [],
+    },
+    (initialState) => {
+      const storadStateAsJSON = localStorage.getItem(
+        "@coffee-delivery:cart-state-1.0.0"
+      );
+
+      if (storadStateAsJSON) {
+        return JSON.parse(storadStateAsJSON);
+      }
+
+      return initialState;
+    }
+  );
+
+  useEffect(() => {
+    localStorage.setItem(
+      "@coffee-delivery:cart-state-1.0.0",
+      JSON.stringify(cartState)
+    );
+  }, [cartState]);
 
   const { cart, orders, coffees } = cartState;
 
