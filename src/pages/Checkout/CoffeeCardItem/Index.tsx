@@ -11,35 +11,40 @@ import {
   Container,
 } from "./styles";
 import { Trash } from "@phosphor-icons/react";
-import {  CoffeeContext } from "../../../contexts/CoffeeContext";
+import { CoffeeContext } from "../../../contexts/CoffeeContext";
 
 interface CardProps {
   coffeeId: string;
 }
 
 export function CoffeeCardItem({ coffeeId }: CardProps) {
-  const { increaseItemQuantity, decreaseItemQuantity, removeCartItems, cartItems, getCoffeeById } =
-    useContext(CoffeeContext);
+  const {
+    increaseItemQuantity,
+    decreaseItemQuantity,
+    removeCartItems,
+    cart,
+    getCoffeeById,
+  } = useContext(CoffeeContext);
 
-    const coffee = getCoffeeById(coffeeId)
+  const coffee = getCoffeeById(coffeeId);
 
-    if (!coffee) {
-      return null; 
-    }
+  if (!coffee) {
+    return null;
+  }
 
-    const coffeeInCart = cartItems.find((item) => item.id === coffee.id);
+  const coffeeInCart = cart.find((item) => item.id === coffee.id);
 
-    const coffeeQuantity = coffeeInCart ? coffeeInCart.quantity : 1;
+  const coffeeQuantity = coffeeInCart ? coffeeInCart.quantity : 1;
 
   function handleIncreaseQuantity() {
     increaseItemQuantity(coffeeId);
   }
   function handleDecreaseQuantity() {
-    if(!coffeeInCart ) return;
+    if (!coffeeInCart) return;
     decreaseItemQuantity(coffeeId);
   }
 
-  function handleRemoveItemCart(){
+  function handleRemoveItemCart() {
     removeCartItems(coffeeId);
   }
 

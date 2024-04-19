@@ -86,7 +86,8 @@ const BaseAddressInput = styled.input`
 
   &:focus,
   &:not(:placeholder-shown) {
-    border-color: ${(props) => props.theme.colors["yellow-dark"]}; /* Cor da borda quando focado */
+    border-color: ${(props) =>
+      props.theme.colors["yellow-dark"]}; /* Cor da borda quando focado */
   }
 
   &::-webkit-calendar-picker-indicator {

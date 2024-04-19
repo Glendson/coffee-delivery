@@ -63,4 +63,3 @@ export const CoffeePrice = styled.aside`
   font: ${(props) => props.theme.fonts.titleXS};
   color: ${(props) => props.theme.colors["base-text"]};
 `;
-

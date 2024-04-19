@@ -55,8 +55,7 @@ export type CreateNewOrderFormData = zod.infer<
 export function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
-  const { createOrder, cartItems, getTotalCartPrice } =
-    useContext(CoffeeContext);
+  const { createOrder, cart, getTotalCartPrice } = useContext(CoffeeContext);
 
   const { register, handleSubmit, reset } = useForm<CreateNewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
@@ -81,7 +80,7 @@ export function Checkout() {
   const handleCreateNewOrder: SubmitHandler<CreateNewOrderFormData> = (
     data
   ) => {
-    if (Object.keys(data).length === 0 || cartItems.length === 0) return;
+    if (Object.keys(data).length === 0 || cart.length === 0) return;
 
     createOrder(data);
 
@@ -201,7 +200,7 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <OrderItemContainer>
-          {cartItems.map((coffee) => {
+          {cart.map((coffee) => {
             return (
               <React.Fragment key={coffee.id}>
                 <CoffeeCardItem coffeeId={coffee.id} />
@@ -214,7 +213,7 @@ export function Checkout() {
           <CartTotalContainer>
             <TotalItens>
               <span>Total de Itens</span>
-              <p>{cartItems.length}</p>
+              <p>{cart.length}</p>
             </TotalItens>
             <DeliveryPrice>
               <span>Entrega</span>

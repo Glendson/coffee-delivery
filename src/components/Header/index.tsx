@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 export function Header() {
-  const { cartItems } = useContext(CoffeeContext);
+  const { cart } = useContext(CoffeeContext);
 
   return (
     <HeaderContainer>
@@ -20,10 +20,10 @@ export function Header() {
           <span>Paranavaí, PR</span>
         </div>
 
-        <NavLink to="/checkout" aria-disabled={!cartItems.length}>
+        <NavLink to="/checkout" aria-disabled={!cart.length}>
           <ShoppingCart weight="fill" />
-          {cartItems.length > 0 ? (
-            <CartCounter>{cartItems.length}</CartCounter>
+          {cart.length > 0 ? (
+            <CartCounter>{cart.length}</CartCounter>
           ) : null}
         </NavLink>
       </aside>
