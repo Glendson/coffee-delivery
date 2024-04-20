@@ -11,7 +11,8 @@ import {
   CoffeeTitle,
 } from "./styles";
 import { useContext, useState } from "react";
-import { Coffee, CoffeeContext } from "../../../../contexts/CoffeeContext";
+import { CoffeeContext } from "../../../../contexts/CoffeeContext";
+import { Coffee } from "../../../../reducers/Cart/reducer";
 
 interface CardProps {
   coffee: Coffee;
@@ -41,7 +42,7 @@ export function CoffeeCard({ coffee }: CardProps) {
       <CoffeeImage src={coffee.image} alt="" />
 
       <CoffeeTag>
-        {coffee.tags.map((tag) => {
+        {coffee.tags.map((tag: string) => {
           return <span key={tag}>{tag}</span>;
         })}
       </CoffeeTag>
